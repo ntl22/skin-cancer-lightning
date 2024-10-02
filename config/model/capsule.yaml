@@ -1,0 +1,43 @@
+_target_: src.models.capsule_model.CapsuleModel
+
+n_classes: 7
+weights: [0.967, 0.949, 0.89, 0.989, 0.889, 0.331, 0.986]
+
+optimizer:
+  _target_: torch.optim.Adam
+  _partial_: true
+  lr: 0.05
+
+lr_scheduler:
+  _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+  _partial_: true
+  T_max: 5
+  eta_min: 1e-8
+
+compile: False
+
+backbone:
+  _target_: torch.nn.Sequential
+  _args_:
+    - _target_: src.models.components.resnet.ResNet
+      channels: [3, 32, 64, 128]
+      stride: 2
+    - _target_: torch.nn.FractionalMaxPool2d
+      kernel_size: 2
+      output_size: 20
+
+cbam:
+  _target_: src.models.components.cbam.CBAM
+  channel_in: 128
+  channel_out: 128
+  reduction_ratio: 16
+
+capsule:
+  _target_: src.models.components.capsule.CapsNet
+  size_in: [20, 20, 128]
+  primary_reduce_fraction: 8
+  primary_dim: 8
+  kernel_size: 9
+  stride: 2
+  digit_channels: ${model.n_classes}
+  digit_dim: 16

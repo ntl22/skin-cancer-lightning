@@ -1,0 +1,11 @@
+defaults:
+  - _self_
+  - model: capsule
+  - data: isic2018
+  - trainer: gpu
+  - logger: tensorboard
+  - hydra: default
+  - paths: default
+  - extras: default
+
+task_name: "train"

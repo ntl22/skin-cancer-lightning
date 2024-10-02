@@ -1,0 +1,5 @@
+_target_: src.data.isic2018.ISIC2018DataModule
+data_dir: ${paths.data_dir}
+batch_size: 32
+num_workers: 8
+pin_memory: True

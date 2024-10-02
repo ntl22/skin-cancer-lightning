@@ -1,0 +1,34 @@
+name: cancer_classification
+
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pytorch=2.3.*
+  - torchvision
+  - pytorch-cuda=12.1
+  - lightning=2.*
+  - scikit-learn
+  - monai=1.3.*
+  
+  - tensorboard
+  
+  - timm
+  - hydra-core=1.*
+  - rich
+  - pre-commit
+  
+  - pip>23
+  - pip:
+    - albumentations
+    - hydra-colorlog
+    - tqdm
+    - pandas
+    - torchinfo
+    - jupyter
+    - rootutils
+    - black
